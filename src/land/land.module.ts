@@ -4,7 +4,7 @@ import { LandController } from './land.controller';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { LandEntity } from './entities/land.entity';
 import { UserService } from "../user/user.service";
-import { UserEntity } from "../user/entities/user.entity";
+import { UserEntity } from '../user/entities/user.entity';
 
 @Module({
   imports : [TypeOrmModule.forFeature([LandEntity, UserEntity], 'mysql')],
