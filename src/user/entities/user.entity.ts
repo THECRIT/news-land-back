@@ -6,7 +6,7 @@ import {
   Index, JoinTable, ManyToMany, OneToMany,
   PrimaryColumn,
   UpdateDateColumn
-} from "typeorm";
+} from 'typeorm';
 import { LandEntity } from '../../land/entities/land.entity';
 
 @Entity()
