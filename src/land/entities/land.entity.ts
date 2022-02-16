@@ -3,10 +3,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  Index, JoinTable, ManyToMany, ManyToOne,
+  Index,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
   PrimaryColumn,
-  UpdateDateColumn
-} from "typeorm";
+  UpdateDateColumn,
+} from 'typeorm';
 import { UserEntity } from '../../user/entities/user.entity';
 
 @Entity()
@@ -17,21 +20,21 @@ export class LandEntity {
   id: number;
 
   @ApiProperty({ description: '사진 url' })
-  @Column('varchar', { length: 400 })
+  @Column('varchar', { length: 400, default: '' })
   url: string;
 
-  @ApiProperty({ description: '연결 주소' })
+  @ApiProperty({ description: '연결 주소', default: '' })
   @Column('varchar', { length: 400 })
   link: string;
 
-  @ApiProperty({ description: '연결 주소' })
+  @ApiProperty({ description: '내용', default: '' })
   @Column('varchar', { length: 400 })
   content: string;
 
   @ManyToOne(() => UserEntity, (user) => user.lands)
   owner: UserEntity;
 
-  @ApiProperty({ type:[UserEntity],description: '투표자들' })
+  @ApiProperty({ type: [UserEntity], description: '투표자들' })
   @ManyToMany(() => UserEntity, (user) => user.votes)
   @JoinTable()
   voters: UserEntity[];

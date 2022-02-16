@@ -9,7 +9,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  async SignUp(@Body() createUserDto: CreateUserDto): Promise<void> {
+  async SignUp(@Body() createUserDto: CreateUserDto): Promise<string> {
     return this.userService.createUser(createUserDto);
   }
 
@@ -25,7 +25,7 @@ export class UserController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.userService.findOne(id);
   }
 
   @Patch(':id')
