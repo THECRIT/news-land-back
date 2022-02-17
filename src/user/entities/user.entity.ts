@@ -3,9 +3,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  Index, JoinTable, ManyToMany, OneToMany,
+  Index,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
   PrimaryColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm';
 import { LandEntity } from '../../land/entities/land.entity';
 
@@ -24,9 +27,13 @@ export class UserEntity {
   @OneToMany(() => LandEntity, (land) => land.owner)
   lands: LandEntity[];
 
-  @ApiProperty({ type: [LandEntity], description: '투표한 Land' })
-  @ManyToMany(() => LandEntity, (land) => land.voters)
-  votes: LandEntity[];
+  @ApiProperty({ type: [LandEntity], description: '추천한 Land' })
+  @ManyToMany(() => LandEntity, (land) => land.upVoters)
+  upVotes: LandEntity[];
+
+  @ApiProperty({ type: [LandEntity], description: '비추천한 Land' })
+  @ManyToMany(() => LandEntity, (land) => land.downVoters)
+  downVotes: LandEntity[];
 
   //아래의 칼럼은 자동 관리 됩니다.
   @ApiProperty({ description: '생성 일시' })

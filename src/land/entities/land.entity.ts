@@ -34,10 +34,15 @@ export class LandEntity {
   @ManyToOne(() => UserEntity, (user) => user.lands)
   owner: UserEntity;
 
-  @ApiProperty({ type: [UserEntity], description: '투표자들' })
-  @ManyToMany(() => UserEntity, (user) => user.votes)
+  @ApiProperty({ type: [UserEntity], description: '추천 투표자들' })
+  @ManyToMany(() => UserEntity, (user) => user.upVotes)
   @JoinTable()
-  voters: UserEntity[];
+  upVoters: UserEntity[];
+
+  @ApiProperty({ type: [UserEntity], description: '비추천 투표자들' })
+  @ManyToMany(() => UserEntity, (user) => user.downVotes)
+  @JoinTable()
+  downVoters: UserEntity[];
 
   //아래의 칼럼은 자동 관리 됩니다.
   @ApiProperty({ description: '생성 일시' })

@@ -9,6 +9,7 @@ import { UserEntity } from './user/entities/user.entity';
 import { LandEntity } from './land/entities/land.entity';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
+import { VoteModule } from './vote/vote.module';
 
 @Module({
   imports: [
@@ -21,11 +22,11 @@ import { AuthModule } from './auth/auth.module';
     TypeOrmModule.forRoot({
       name: 'mysql',
       type: 'mysql',
-      host: 'db',
+      host: 'localhost',
       port: 3306,
-      username: 'root',
-      password: 'qetu1357',
-      database: 'newsland',
+      username: process.env.MySQL_USERNAME,
+      password: process.env.MySQL_PW,
+      database: 'db',
       entities: [UserEntity, LandEntity],
       synchronize: true,
       charset: 'utf8mb4',
@@ -34,6 +35,7 @@ import { AuthModule } from './auth/auth.module';
       keepConnectionAlive: true,
     }),
     AuthModule,
+    VoteModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService],

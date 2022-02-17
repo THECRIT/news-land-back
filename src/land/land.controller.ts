@@ -42,10 +42,16 @@ export class LandController {
     return this.landService.update(+id, updateLandDto);
   }
 
-  @Post('/vote/?=id')
-  async vote(@Query('id') id: number) {
+  @Post('/upvote/?=id')
+  async upVote(@Query('id') id: number) {
     const user = await this.userService.findOne('sfsefsfd');
-    return this.landService.vote(id, user);
+    return this.landService.upVote(id, user);
+  }
+
+  @Post('/downvote/?=id')
+  async downVote(@Query('id') id: number) {
+    const user = await this.userService.findOne('sfsefsfd');
+    return this.landService.downVote(id, user);
   }
 
   @Delete(':id')

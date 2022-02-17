@@ -45,12 +45,22 @@ export class LandService {
     return `This action removes a #${id} land`;
   }
 
-  async vote(id: number, user: UserEntity) {
+  async upVote(id: number, user: UserEntity) {
     const land = await this.findOne(id);
-    if (land.voters.includes(user)) {
-      throw new Error('you already voted this Land');
+    if (land.upVoters.includes(user)) {
+      throw new Error('you already upVoted this Land');
     } else {
-      land.voters.push(user);
+      land.upVoters.push(user);
+      return 'success';
+    }
+  }
+
+  async downVote(id: number, user: UserEntity) {
+    const land = await this.findOne(id);
+    if (land.downVoters.includes(user)) {
+      throw new Error('you already downVoted this Land');
+    } else {
+      land.downVoters.push(user);
       return 'success';
     }
   }
