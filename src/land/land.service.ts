@@ -52,6 +52,7 @@ export class LandService {
 
   async upVote(id: number, user: UserEntity) {
     const land = await this.findOne(id);
+    console.log(land);
     if (land.upVoters.includes(user)) {
       throw new Error('you already upVoted this Land');
     } else {
@@ -62,11 +63,24 @@ export class LandService {
 
   async downVote(id: number, user: UserEntity) {
     const land = await this.findOne(id);
+    console.log(land);
     if (land.downVoters.includes(user)) {
       throw new Error('you already downVoted this Land');
     } else {
       land.downVoters.push(user);
       return 'success';
+    }
+  }
+
+  async mocking(count: number) {
+    console.log('mocking start');
+    for (let idx = 0; idx < count; idx++) {
+      const emptyLand = this.landRepository.create({
+        id: idx,
+        src: '',
+        content: '',
+      });
+      await this.landRepository.save(emptyLand);
     }
   }
 }

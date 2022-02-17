@@ -22,9 +22,8 @@ export class LandController {
   ) {}
 
   @Post()
-  async create(@Body() createLandDto: CreateLandDto, owner: string) {
-    //TODO: user find by address
-    const user = await this.userService.findOne(owner);
+  async create(@Body() createLandDto: CreateLandDto, address: string) {
+    const user = await this.userService.findOne(address);
     return this.landService.create(createLandDto, user);
   }
   @Get()
@@ -42,20 +41,27 @@ export class LandController {
     return this.landService.update(+id, updateLandDto);
   }
 
-  @Post('/like/?=id')
-  async upVote(@Query('id') id: number, @Body() owner: string) {
-    const user = await this.userService.findOne(owner);
+  @Post('/upvote/?=id')
+  async upVote(@Query('id') id: number, @Body() address: string) {
+    const user = await this.userService.findOne(address);
+    console.log(user);
     return this.landService.upVote(id, user);
   }
 
-  @Post('/dislike/?=id')
-  async downVote(@Query('id') id: number, @Body() owner: string) {
-    const user = await this.userService.findOne(owner);
+  @Post('/downvote/?=id')
+  async downVote(@Query('id') id: number, @Body() address: string) {
+    const user = await this.userService.findOne(address);
+    console.log(user);
     return this.landService.downVote(id, user);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.landService.remove(+id);
+  }
+
+  @Post('mocking/:count')
+  mocking(@Param('count') count: number) {
+    return this.landService.mocking(count);
   }
 }

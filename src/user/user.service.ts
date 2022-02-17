@@ -13,31 +13,36 @@ export class UserService {
     private userRepository: Repository<UserEntity>,
   ) {}
 
-  async createUser(createUserDto: CreateUserDto) {
-    const userExist = this.checkUserExists(createUserDto.address);
-
-    if (userExist) {
-      throw new UnprocessableEntityException('you are already signed up!');
-    }
-    await this.saveUser(createUserDto);
-    return this.login(createUserDto);
-  }
+  // async createUser(createUserDto: CreateUserDto) {
+  //   const userExist = this.checkUserExists(createUserDto.address);
+  //
+  //   // if (userExist) {
+  //   //   throw new UnprocessableEntityException('you are already signed up!');
+  //   // }
+  //   console.log('save user');
+  //   await this.saveUser(createUserDto);
+  //   //return this.login(createUserDto);
+  // }
 
   async login(userLoginDto: LoginUserDto) {
+    console.log(userLoginDto.address);
     const userExist = await this.checkUserExists(userLoginDto.address);
     if (!userExist) {
-      await this.createUser(userLoginDto);
+      console.log('you are here!');
+      await this.saveUser(userLoginDto);
     }
     // auth module의 login 함수 사용
-    return 'success';
+    return await this.userRepository.findOne(userLoginDto.address);
   }
 
   private async checkUserExists(address: string) {
     //true false test 필요
-    return this.userRepository.findOne({ address });
+    const user = await this.userRepository.findOne({ address });
+    return this.userRepository.hasId(user);
   }
 
   private saveUser(createUserDto: CreateUserDto) {
+    console.log('save user');
     return this.userRepository.save({ ...createUserDto });
   }
 
@@ -46,7 +51,7 @@ export class UserService {
   }
 
   findOne(address: string) {
-    return this.userRepository.findOne({ address});
+    return this.userRepository.findOne({ address });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

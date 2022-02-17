@@ -3,18 +3,23 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { UserEntity } from "./entities/user.entity";
 
 @Controller('account')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
-  async SignUp(@Body() createUserDto: CreateUserDto): Promise<string> {
-    return this.userService.createUser(createUserDto);
-  }
+  // @Post()
+  // async SignUp(
+  //   @Body() createUserDto: CreateUserDto,
+  // ): Promise<void> {
+  //   return this.userService.createUser(createUserDto);
+  // }
 
   @Post('/login')
-  async login(@Body() userLoginDto: LoginUserDto) :Promise<string> {
+  async login(
+    @Body() userLoginDto: LoginUserDto,
+  ): Promise<UserEntity | undefined> {
     return await this.userService.login(userLoginDto);
   }
 
