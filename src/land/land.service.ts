@@ -22,16 +22,16 @@ export class LandService {
   findAll() {
     return this.landRepository
       .createQueryBuilder('land')
-      .leftJoinAndSelect('land.voter', 'upVoter')
-      .leftJoinAndSelect('land.voter', 'downVoter')
+      .leftJoinAndSelect('land.upVoters', 'upVoter')
+      .leftJoinAndSelect('land.downVoters', 'downVoter')
       .getMany();
   }
 
   findOne(id: number) {
     return this.landRepository
       .createQueryBuilder('land')
-      .leftJoinAndSelect('land.voter', 'upVoter')
-      .leftJoinAndSelect('land.voter', 'downVoter')
+      .leftJoinAndSelect('land.upVoters', 'upVoter')
+      .leftJoinAndSelect('land.downVoters', 'downVoter')
       .leftJoinAndSelect('land.owner', 'owner')
       .where('land.id = :id', { id })
       .getOne();

@@ -6,10 +6,4 @@ export class LoginUserDto extends CreateUserDto {
   @ApiProperty()
   @IsEmail()
   readonly address: string;
-
-  // Optional
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  readonly password: string;
 }
