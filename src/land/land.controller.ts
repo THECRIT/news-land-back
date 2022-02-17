@@ -26,6 +26,20 @@ export class LandController {
     const user = await this.userService.findOne(address);
     return this.landService.create(createLandDto, user);
   }
+  @Post('/upvote')
+  async upVote(@Query('id') id: number, @Body() address: string) {
+    const user = await this.userService.findOne(address);
+    console.log(address);
+    console.log(user);
+    return this.landService.upVote(id, user);
+  }
+
+  @Post('/downvote')
+  async downVote(@Query('id') id: number, @Body() address: string) {
+    const user = await this.userService.findOne(address);
+    console.log(user);
+    return this.landService.downVote(id, user);
+  }
   @Get()
   async findAll(): Promise<LandEntity[]> {
     return await this.landService.findAll();
@@ -39,20 +53,6 @@ export class LandController {
   @Patch(':id')
   update(@Param('id') id: number, @Body() updateLandDto: UpdateLandDto) {
     return this.landService.update(+id, updateLandDto);
-  }
-
-  @Post('/upvote/?=id')
-  async upVote(@Query('id') id: number, @Body() address: string) {
-    const user = await this.userService.findOne(address);
-    console.log(user);
-    return this.landService.upVote(id, user);
-  }
-
-  @Post('/downvote/?=id')
-  async downVote(@Query('id') id: number, @Body() address: string) {
-    const user = await this.userService.findOne(address);
-    console.log(user);
-    return this.landService.downVote(id, user);
   }
 
   @Delete(':id')

@@ -50,8 +50,9 @@ export class UserService {
     return `This action returns all user`;
   }
 
-  findOne(address: string) {
-    return this.userRepository.findOne({ address });
+  async findOne(address: any) {
+    const user = await this.userRepository.findOne({ address: address.address });
+    return user;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
