@@ -26,7 +26,7 @@ import { VoteModule } from './vote/vote.module';
       port: 3306,
       username: process.env.MySQL_USERNAME,
       password: process.env.MySQL_PW,
-      database: 'db',
+      database: 'newsland',
       entities: [UserEntity, LandEntity],
       synchronize: true,
       charset: 'utf8mb4',

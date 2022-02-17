@@ -17,12 +17,7 @@ export class CreateLandDto {
   @ApiProperty()
   @IsString()
   @IsOptional()
-  readonly url: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsOptional()
-  readonly link: string;
+  readonly src: string;
 
   @ApiProperty()
   @IsString()

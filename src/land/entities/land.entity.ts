@@ -21,11 +21,7 @@ export class LandEntity {
 
   @ApiProperty({ description: '사진 url' })
   @Column('varchar', { length: 400, default: '' })
-  url: string;
-
-  @ApiProperty({ description: '연결 주소', default: '' })
-  @Column('varchar', { length: 400 })
-  link: string;
+  src: string;
 
   @ApiProperty({ description: '내용', default: '' })
   @Column('varchar', { length: 400 })
