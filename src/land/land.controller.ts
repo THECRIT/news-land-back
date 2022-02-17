@@ -22,9 +22,9 @@ export class LandController {
   ) {}
 
   @Post()
-  async create(@Body() createLandDto: CreateLandDto) {
+  async create(@Body() createLandDto: CreateLandDto, owner: string) {
     //TODO: user find by address
-    const user = await this.userService.findOne('sfsefsfd');
+    const user = await this.userService.findOne(owner);
     return this.landService.create(createLandDto, user);
   }
   @Get()

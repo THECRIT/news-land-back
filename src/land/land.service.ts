@@ -20,13 +20,18 @@ export class LandService {
   }
 
   findAll() {
-    return this.landRepository.find();
+    return this.landRepository
+      .createQueryBuilder('land')
+      .leftJoinAndSelect('land.voter', 'upVoter')
+      .leftJoinAndSelect('land.voter', 'downVoter')
+      .getMany();
   }
 
   findOne(id: number) {
     return this.landRepository
       .createQueryBuilder('land')
-      .leftJoinAndSelect('land.voter', 'voter')
+      .leftJoinAndSelect('land.voter', 'upVoter')
+      .leftJoinAndSelect('land.voter', 'downVoter')
       .leftJoinAndSelect('land.owner', 'owner')
       .where('land.id = :id', { id })
       .getOne();
