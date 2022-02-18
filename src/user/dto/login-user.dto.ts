@@ -4,6 +4,6 @@ import { CreateUserDto } from './create-user.dto';
 
 export class LoginUserDto extends CreateUserDto {
   @ApiProperty()
-  @IsEmail()
+  @IsString()
   readonly address: string;
 }

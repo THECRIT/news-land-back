@@ -52,21 +52,47 @@ export class LandService {
 
   async upVote(id: number, user: UserEntity) {
     const land = await this.findOne(id);
-    if (land.upVoters.includes(user)) {
-      throw new Error('you already upVoted this Land');
+    let isVoted = false;
+    for (let idx = 0; idx < land.upVoters.length; idx++) {
+      if (land.upVoters[idx].address == user.address) {
+        isVoted = true;
+      }
+    }
+    if (isVoted) {
+      return 'you already upVoted this Land';
     } else {
       land.upVoters.push(user);
+      await this.landRepository.save(land);
       return 'success';
     }
   }
 
   async downVote(id: number, user: UserEntity) {
     const land = await this.findOne(id);
-    if (land.downVoters.includes(user)) {
-      throw new Error('you already downVoted this Land');
+    let isVoted = false;
+    for (let idx = 0; idx < land.downVoters.length; idx++) {
+      if (land.downVoters[idx].address == user.address) {
+        isVoted = true;
+      }
+    }
+    if (isVoted) {
+      return 'you already downVoted this Land';
     } else {
       land.downVoters.push(user);
+      await this.landRepository.save(land);
       return 'success';
+    }
+  }
+
+  async mocking(count: number) {
+    console.log('mocking start');
+    for (let idx = 0; idx < count; idx++) {
+      const emptyLand = this.landRepository.create({
+        id: idx,
+        src: '',
+        content: '',
+      });
+      await this.landRepository.save(emptyLand);
     }
   }
 }

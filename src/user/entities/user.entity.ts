@@ -20,7 +20,7 @@ export class UserEntity {
   address: string;
 
   @ApiProperty({ description: '닉네임' })
-  @Column('varchar', { length: 40 })
+  @Column('varchar', { length: 40, default: '' })
   username: string;
 
   @ApiProperty({ type: [LandEntity], description: 'Land 리스트' })
